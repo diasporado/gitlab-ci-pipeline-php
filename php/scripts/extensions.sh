@@ -80,6 +80,18 @@ DEBIAN_FRONTEND=noninteractive apt-get install -yqq $buildDeps \
   && docker-php-ext-install -j$(nproc) imap \
   && docker-php-source delete
 
+curl --location --output /usr/local/bin/phpunit https://phar.phpunit.de/phpunit.phar \
+  && chmod +x /usr/local/bin/phpunit
+
+curl --location --output /usr/local/bin/phpcs https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar \
+  && chmod +x /usr/local/bin/phpcs
+
+curl --location --output /usr/local/bin/phpcbf https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar \
+  && chmod +x /usr/local/bin/phpcbf
+
+curl --location --output /usr/local/bin/phpmetrics https://github.com/phpmetrics/PhpMetrics/releases/download/v2.4.1/phpmetrics.phar \
+  && chmod +x /usr/local/bin/phpmetrics
+
 if [[ $PHP_VERSION == "7.2" ]]; then
   docker-php-source extract \
     && git clone https://github.com/php-memcached-dev/php-memcached /usr/src/php/ext/memcached/ \
